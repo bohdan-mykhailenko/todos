@@ -2,12 +2,12 @@ import { Task } from '@/types/Task';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface taskState {
-  isAddFormOpenned: boolean;
+  updatingTask: Task | null;
   tasks: Task[];
 }
 
 const initialState: taskState = {
-  isAddFormOpenned: false,
+  updatingTask: null,
   tasks: [],
 };
 
@@ -15,8 +15,8 @@ const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    setIsAddFormOpenned: (state, action: PayloadAction<boolean>) => {
-      state.isAddFormOpenned = action.payload;
+    setUpdatingTask: (state, action: PayloadAction<Task | null>) => {
+      state.updatingTask = action.payload;
     },
 
     setTasks: (state, action: PayloadAction<Task[]>) => {
@@ -37,19 +37,19 @@ const taskSlice = createSlice({
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
 
-    // edittask: (state, action: PayloadAction<id, Partial<Task>>) => {
-    //   const index = state.tasks.findIndex(
-    //     (task) => task.id === action.payload.id,
-    //   );
+    editTask: (state, action: PayloadAction<Task>) => {
+      const index = state.tasks.findIndex(
+        (task) => task.id === action.payload.id,
+      );
 
-    //   if (index !== -1) {
-    //     state.tasks[index] = action.payload;
-    //   }
-    // },
+      if (index !== -1) {
+        state.tasks[index] = action.payload;
+      }
+    },
   },
 });
 
-export const { setIsAddFormOpenned, setTasks, addTask, removeTask } =
+export const { setTasks, setUpdatingTask, addTask, editTask, removeTask } =
   taskSlice.actions;
 
 export default taskSlice.reducer;

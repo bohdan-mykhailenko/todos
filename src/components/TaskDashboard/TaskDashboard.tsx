@@ -2,18 +2,18 @@
 
 import { Grid } from '@mui/material';
 import { CreatePanel } from '../CreatePanel';
-import { AddForm } from '../AddForm';
 import { TaskList } from '../TaskList';
 import { useTypedSelector } from '@/redux/hooks';
-import { selectIsAddFormOpenned } from '@/redux/selectors/taskSelector';
+import { selectIsAddModalOpen } from '@/redux/selectors/modalsSelector';
+import { AddModal } from '../Modal/AddModal';
 
 export const TaskDashboard: React.FC = () => {
-  const isAddFormOpenned = useTypedSelector(selectIsAddFormOpenned);
+  const isAddModalOpen = useTypedSelector(selectIsAddModalOpen);
 
   return (
-    <Grid>
+    <Grid position="relative">
       <CreatePanel />
-      {isAddFormOpenned && <AddForm />}
+      {isAddModalOpen && <AddModal />}
 
       <TaskList />
     </Grid>
