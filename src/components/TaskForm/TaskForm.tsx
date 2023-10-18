@@ -1,9 +1,11 @@
-import { addTask, setIsAddFormOpenned } from '@/redux/features/taskSlice';
-import { useTypedDispatch } from '@/redux/hooks';
+import { setIsAddModalOpen } from '@/redux/features/modalsSlice';
+import { addTask, editTask, setUpdatingTask } from '@/redux/features/taskSlice';
+import { useTypedDispatch, useTypedSelector } from '@/redux/hooks';
+import { selectUpdatingTask } from '@/redux/selectors/taskSelector';
 import { Priority } from '@/types/Priority';
 import { Status } from '@/types/Status';
 import { Task } from '@/types/Task';
-import { addFormValidationSchema } from '@/validation/addFormValidationSchema';
+import { taskFormValidationSchema } from '@/validation/taskFormValidationSchema';
 import {
   Button,
   Grid,
@@ -14,27 +16,48 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 
-export const AddForm: React.FC = () => {
+export const TaskForm: React.FC = () => {
   const dispatch = useTypedDispatch();
+  const updatingTask = useTypedSelector(selectUpdatingTask);
+  const isTaskUpdating = updatingTask !== null;
+
   const initialValues: Task = {
-    id: 0,
-    title: '',
-    description: '',
-    priority: Priority.Default,
-    status: Status.NotCompleted,
+    id: updatingTask?.id || 0,
+    title: updatingTask?.title || '',
+    description: updatingTask?.description || '',
+    priority: updatingTask?.priority || Priority.Default,
+    status: updatingTask?.status || Status.NotCompleted,
   };
 
   const formik = useFormik({
     initialValues,
-    validationSchema: addFormValidationSchema,
+    validationSchema: taskFormValidationSchema,
     onSubmit: (values) => {
-      dispatch(addTask(values));
-      dispatch(setIsAddFormOpenned(false));
+      if (!isTaskUpdating) {
+        dispatch(addTask(values));
+      } else {
+        const isUpdated =
+          values.title !== updatingTask.title ||
+          values.description !== updatingTask.description ||
+          values.priority !== updatingTask.priority ||
+          values.status !== updatingTask.status;
+
+        console.log('iu', isUpdated);
+        console.log('val', values);
+
+        if (isUpdated) {
+          dispatch(editTask(values));
+        }
+      }
+
+      dispatch(setIsAddModalOpen(false));
+      dispatch(setUpdatingTask(null));
     },
   });
 
-  const handleCloseAddForm = () => {
-    dispatch(setIsAddFormOpenned(false));
+  const handleCloseTaskForm = () => {
+    dispatch(setIsAddModalOpen(false));
+    dispatch(setUpdatingTask(null));
   };
 
   return (
@@ -131,7 +154,7 @@ export const AddForm: React.FC = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleCloseAddForm}
+            onClick={handleCloseTaskForm}
           >
             Cancel
           </Button>

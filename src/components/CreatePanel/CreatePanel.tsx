@@ -2,22 +2,22 @@ import React from 'react';
 import { Grid, IconButton, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useTypedDispatch } from '@/redux/hooks';
-import { setIsAddFormOpenned } from '@/redux/features/taskSlice';
+import { setIsAddModalOpen } from '@/redux/features/modalsSlice';
 
 interface CreatePanelProps {}
 
 export const CreatePanel: React.FC<CreatePanelProps> = () => {
   const dispatch = useTypedDispatch();
 
-  const handleOpenAddForm = () => {
-    dispatch(setIsAddFormOpenned(true));
+  const handleOpenTaskForm = () => {
+    dispatch(setIsAddModalOpen(true));
   };
 
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Typography variant="h3">Create new task</Typography>
 
-      <IconButton onClick={handleOpenAddForm}>
+      <IconButton onClick={handleOpenTaskForm}>
         <AddCircleIcon />
       </IconButton>
     </Grid>

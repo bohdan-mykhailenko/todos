@@ -28,7 +28,7 @@ export const TaskList: React.FC<TaskListProps> = () => {
       title: 'Meeting with Client',
       description: 'Discuss project requirements and gather feedback.',
       priority: Priority.Medium,
-      status: Status.NotCompleted,
+      status: Status.Completed,
     },
     {
       id: 3,
