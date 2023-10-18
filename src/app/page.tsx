@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
-
-import { TaskList } from '@/components/TaskList';
+import { StoreProvider } from '@/redux/provider';
+import { TaskDashboard } from '@/components/TaskDashboard/TaskDashboard';
 
 export default function Home() {
   return (
@@ -16,8 +16,9 @@ export default function Home() {
       <Typography variant="h1" color="primary" marginBottom="20px">
         TODOS
       </Typography>
-
-      <TaskList />
+      <StoreProvider>
+        <TaskDashboard />
+      </StoreProvider>
     </Grid>
   );
 }

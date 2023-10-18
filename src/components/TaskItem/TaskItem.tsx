@@ -7,14 +7,17 @@ import useTheme from '@mui/material/styles/useTheme';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import { EditButton } from '../EditButton';
+import { useTypedDispatch } from '@/redux/hooks';
+import { removeTask } from '@/redux/features/taskSlice';
 
 interface TaskItemProps {
   task: Task;
 }
 
 export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
+  const dispatch = useTypedDispatch();
   const theme = useTheme();
-  const { title, description, priority, status } = task;
+  const { id, title, description, priority, status } = task;
 
   const priorityBorderColors = {
     default: 'gray',
@@ -25,6 +28,10 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
   const borderColor =
     priorityBorderColors[task.priority] || theme.palette.primary.main;
+
+  const handleRemoveTask = () => {
+    dispatch(removeTask(id));
+  };
 
   return (
     <ListItem>
@@ -38,7 +45,14 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
         }}
       >
         <Grid container justifyContent="space-between">
-          <Grid item direction="row" display="flex" alignItems="center">
+          <Grid
+            item
+            sx={{
+              direction: 'row',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
             <Typography
               variant="h2"
               sx={{
@@ -54,17 +68,20 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
           </Grid>
 
           <Grid item>
-            <IconButton>
+            <IconButton onClick={handleRemoveTask}>
               <CloseIcon />
             </IconButton>
           </Grid>
         </Grid>
 
         <Grid container>
-          <Grid container xs={12} alignItems="center">
+          <Grid container alignItems="center">
             <Typography
               variant="h3"
               sx={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
                 color: theme.palette.gray.main,
               }}
             >
@@ -85,7 +102,14 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
               textAlign: 'right',
             }}
           >
-            <Typography variant="h3">{status}</Typography>
+            <Typography
+              variant="h3"
+              sx={{
+                textTransform: 'capitalize',
+              }}
+            >
+              {status}
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

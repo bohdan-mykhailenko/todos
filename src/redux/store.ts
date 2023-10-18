@@ -1,8 +1,14 @@
 'use client';
 
 import { configureStore } from '@reduxjs/toolkit';
+import taskReducer from './features/taskSlice';
+//import modalsReducer from './features/modals/modalsSlice';
+
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    task: taskReducer,
+    //modals: modalsReducer,
+  },
 });
 
 export default store;
