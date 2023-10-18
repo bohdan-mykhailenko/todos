@@ -1,16 +1,21 @@
 'use client';
 
 import { List } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TaskItem } from '../TaskItem';
 import { Priority } from '@/types/Priority';
 import { Status } from '@/types/Status';
 import { Task } from '@/types/Task';
+import { useTypedDispatch, useTypedSelector } from '@/redux/hooks';
+import { setTasks } from '@/redux/features/taskSlice';
+import { selectTasks } from '@/redux/selectors/taskSelector';
 
 interface TaskListProps {}
 
 export const TaskList: React.FC<TaskListProps> = () => {
-  const tasks: Task[] = [
+  const dispatch = useTypedDispatch();
+
+  const tasksFromStorage: Task[] = [
     {
       id: 1,
       title: 'Develop Website Homepage',
@@ -48,6 +53,28 @@ export const TaskList: React.FC<TaskListProps> = () => {
       status: Status.NotCompleted,
     },
   ];
+
+  const tasks = useTypedSelector(selectTasks);
+
+  useEffect(() => {
+    // const savedTasks = localStorage.getItem('tasks');
+
+    // if (savedTasks) {
+    //   const parsedTasks = JSON.parse(savedTasks);
+
+    //   dispatch(setTasks(parsedTasks));
+    // } else {
+    //   dispatch(setTasks(tasksFromStorage));
+    // }
+
+    dispatch(setTasks(tasksFromStorage));
+
+    return () => {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    };
+  }, []);
+
+  console.log(tasks);
 
   return (
     <List>
