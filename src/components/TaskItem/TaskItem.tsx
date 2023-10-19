@@ -11,14 +11,13 @@ import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import FlagIcon from '@mui/icons-material/Flag';
 import { useTypedDispatch } from '@/redux/hooks';
-import {
-  removeTask,
-  setUpdatingTask,
-  toggleTaskStatus,
-} from '@/redux/features/taskSlice';
+import { setSelectedTask, toggleTaskStatus } from '@/redux/features/taskSlice';
 import { Status } from '@/types/Status';
 import { Priority } from '@/types/Priority';
-import { setIsAddModalOpen } from '@/redux/features/modalsSlice';
+import {
+  setIsAddModalOpen,
+  setIsFormModalOpen,
+} from '@/redux/features/modalsSlice';
 
 interface TaskItemProps {
   task: Task;
@@ -57,11 +56,12 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
   const handleOpenEditModal = () => {
     dispatch(setIsAddModalOpen(true));
-    dispatch(setUpdatingTask(task));
+    dispatch(setSelectedTask(task));
   };
 
-  const handleRemoveTask = () => {
-    dispatch(removeTask(id));
+  const handleOpenDeleteModal = () => {
+    dispatch(setIsFormModalOpen(true));
+    dispatch(setSelectedTask(task));
   };
 
   const handleStatusToggle = () => {
@@ -73,43 +73,52 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
       <Grid
         container
         sx={{
-          padding: '10px',
+          padding: '20px',
           borderRadius: '10px',
           border: `3px solid ${theme.palette.primary.main}`,
           gap: '10px',
           backgroundColor: theme.palette.white.main,
+
+          [theme.breakpoints.down('sm')]: {
+            padding: '10px',
+            gap: '5px',
+          },
         }}
       >
-        <Grid container justifyContent="space-between">
-          <Grid
-            item
+        <Grid
+          xs={12}
+          item
+          sx={{
+            textAlign: 'right',
+          }}
+        >
+          <IconButton onClick={handleOpenEditModal}>
+            <EditIcon />
+          </IconButton>
+
+          <IconButton onClick={handleOpenDeleteModal}>
+            <CloseIcon />
+          </IconButton>
+        </Grid>
+
+        <Grid
+          item
+          sx={{
+            direction: 'row',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Typography
+            variant="h2"
             sx={{
-              direction: 'row',
-              display: 'flex',
-              alignItems: 'center',
+              [theme.breakpoints.down('sm')]: {
+                fontSize: '20px',
+              },
             }}
           >
-            <Typography
-              variant="h2"
-              sx={{
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {title}
-            </Typography>
-          </Grid>
-
-          <Grid item>
-            <IconButton onClick={handleOpenEditModal}>
-              <EditIcon />
-            </IconButton>
-
-            <IconButton onClick={handleRemoveTask}>
-              <CloseIcon />
-            </IconButton>
-          </Grid>
+            {title}
+          </Typography>
         </Grid>
 
         <Grid container alignItems="center">
@@ -118,6 +127,14 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
               variant="h4"
               sx={{
                 color: theme.palette.gray.dark,
+
+                [theme.breakpoints.down('md')]: {
+                  fontSize: '16px',
+                },
+
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: '14px',
+                },
               }}
             >
               {description}

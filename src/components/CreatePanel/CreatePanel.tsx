@@ -30,7 +30,7 @@ export const CreatePanel: React.FC<CreatePanelProps> = () => {
           color: theme.palette.primary.main,
         }}
       >
-        <AddCircleIcon />
+        <AddCircleIcon fontSize="medium" />
       </IconButton>
     </Grid>
   );

@@ -13,6 +13,7 @@ export const theme = createTheme({
     MuiSelect: {
       styleOverrides: {
         root: {
+          padding: '0',
           textTransform: 'capitalize',
         },
       },
@@ -21,6 +22,13 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'capitalize',
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          padding: '3px',
         },
       },
     },
@@ -47,6 +55,11 @@ export const theme = createTheme({
     h4: {
       fontSize: '18px',
       fontWeight: 500,
+      lineHeight: '150%',
+    },
+    h5: {
+      fontSize: '14px',
+      fontWeight: 700,
       lineHeight: '150%',
     },
     body1: {

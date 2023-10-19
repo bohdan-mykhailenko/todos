@@ -9,7 +9,7 @@ export default function Home() {
       direction="column"
       alignItems="center"
       sx={{
-        padding: '30px',
+        padding: '30px 10px',
         minHeight: '100vh',
 
         backgroundColor: 'mediumspringgreen',

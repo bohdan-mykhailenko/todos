@@ -1,16 +1,25 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useTypedDispatch, useTypedSelector } from '@/redux/hooks';
 import { SortFields, SortOrder, SortValues } from '@/types/SortValues';
 import { setSortValues } from '@/redux/features/sortSlice';
 import { selectSortValues } from '@/redux/selectors/sortSelector';
+import useTheme from '@mui/material/styles/useTheme';
 
 export const SortPanel = () => {
+  const theme = useTheme();
   const dispatch = useTypedDispatch();
   const sortValues = useTypedSelector(selectSortValues);
+
   const sortField = sortValues.field;
   const sortOrder = sortValues.order;
+
+  const sortOptions = [
+    { field: SortFields.TITLE },
+    { field: SortFields.STATUS },
+    { field: SortFields.PRIORITY },
+  ];
 
   const handleSort = (field: SortFields) => {
     if (field === sortField) {
@@ -24,23 +33,43 @@ export const SortPanel = () => {
   };
 
   return (
-    <Box display="flex" alignItems="center">
-      <Typography variant="body1">Sort by:</Typography>
-      <Button onClick={() => handleSort(SortFields.TITLE)}>
-        Title
-        {sortField === SortFields.TITLE &&
-          (sortOrder === SortOrder.ASC ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />)}
-      </Button>
-      <Button onClick={() => handleSort(SortFields.STATUS)}>
-        Status
-        {sortField === SortFields.STATUS &&
-          (sortOrder === SortOrder.ASC ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />)}
-      </Button>
-      <Button onClick={() => handleSort(SortFields.PRIORITY)}>
-        Priority
-        {sortField === SortFields.PRIORITY &&
-          (sortOrder === SortOrder.ASC ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />)}
-      </Button>
+    <Box
+      display="flex"
+      alignItems="center"
+      flexDirection="column"
+      sx={{
+        padding: '10px',
+        borderRadius: '10px',
+        backgroundColor: theme.palette.white.main,
+
+        width: '300px',
+      }}
+    >
+      <Typography variant="h5" textAlign="center" marginBottom="10px">
+        Sort by:
+      </Typography>
+      <Grid container justifyContent="center" gap="5px">
+        {sortOptions.map((option) => (
+          <Button
+            sx={{
+              width: '85px',
+              fontSize: '12px',
+              fontWeight: '700',
+            }}
+            key={option.field}
+            onClick={() => handleSort(option.field)}
+            variant="outlined"
+          >
+            {option.field}
+            {sortField === option.field &&
+              (sortOrder === SortOrder.ASC ? (
+                <ArrowUpwardIcon fontSize="small" />
+              ) : (
+                <ArrowDownwardIcon fontSize="small" />
+              ))}
+          </Button>
+        ))}
+      </Grid>
     </Box>
   );
 };

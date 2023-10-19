@@ -40,18 +40,6 @@ export const BasicModal: React.FC<DeleteModalProps> = ({
           border: `3px solid ${theme.palette.primary.main}`,
           boxShadow: 24,
           borderRadius: '10px',
-
-          [theme.breakpoints.up('md')]: {
-            width: '600px',
-          },
-
-          [theme.breakpoints.up('sm')]: {
-            width: '400px',
-          },
-
-          [theme.breakpoints.up('xs')]: {
-            width: '300px',
-          },
         }}
       >
         {children}
