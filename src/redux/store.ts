@@ -5,6 +5,7 @@ import taskReducer from './features/taskSlice';
 import modalsReducer from './features/modalsSlice';
 import filterReducer from './features/filterSlice';
 import sortReducer from './features/sortSlice';
+import alertReducer from './features/alertSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     filter: filterReducer,
     sort: sortReducer,
     modals: modalsReducer,
+    alert: alertReducer,
   },
 });
 

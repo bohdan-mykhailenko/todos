@@ -8,18 +8,28 @@ import { BasicModal } from '../BasicModal';
 import { setIsFormModalOpen } from '@/redux/features/modalsSlice';
 import { selectSelectedTask } from '@/redux/selectors/taskSelector';
 import { removeTask } from '@/redux/features/taskSlice';
+import {
+  setAlertMessage,
+  setIsAlertOppened,
+} from '@/redux/features/alertSlice';
 
 export const DeleteModal = () => {
   const dispatch = useTypedDispatch();
   const { id = 0, title } = useTypedSelector(selectSelectedTask) || {};
 
-  const handleCloseDeleteModal = () => {
-    dispatch(setIsFormModalOpen(false));
-  };
+  const handleCloseDeleteModal = () => {};
 
   const handleRemoveTask = () => {
+    const deleteMessage = {
+      title: 'Delete',
+      text: 'Successfully deleted task!',
+      severity: 'success',
+    };
+
     dispatch(removeTask(id));
-    handleCloseDeleteModal();
+    dispatch(setIsFormModalOpen(false));
+    dispatch(setIsAlertOppened(true));
+    dispatch(setAlertMessage(deleteMessage));
   };
 
   return (
