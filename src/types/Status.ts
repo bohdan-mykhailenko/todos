@@ -1,5 +1,5 @@
 export enum Status {
-  Completed = 'completed',
-  NotCompleted = 'not completed',
-  InProgress = 'in progress',
+  COMPLETED = 'completed',
+  NOT_COMPLETED = 'not completed',
+  IN_PROGRESS = 'in progress',
 }

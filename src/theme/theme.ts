@@ -9,6 +9,20 @@ export const theme = createTheme({
         },
       },
     },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          textTransform: 'capitalize',
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          textTransform: 'capitalize',
+        },
+      },
+    },
   },
   typography: {
     fontFamily: 'Nunito',
@@ -20,7 +34,7 @@ export const theme = createTheme({
       lineHeight: '150%',
     },
     h2: {
-      fontSize: '22px',
+      fontSize: '24px',
       fontWeight: 800,
       lineHeight: '150%',
     },
@@ -30,8 +44,8 @@ export const theme = createTheme({
       lineHeight: '150%',
     },
     h4: {
-      fontSize: '16px',
-      fontWeight: 700,
+      fontSize: '18px',
+      fontWeight: 500,
       lineHeight: '150%',
     },
     body1: {
@@ -72,6 +86,11 @@ export const theme = createTheme({
     },
     white: {
       main: '#FAFDFE',
+    },
+    priority: {
+      main: '#7d39a7',
+      dark: '#4e0d76',
+      light: '#9c73b8',
     },
   },
 });

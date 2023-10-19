@@ -5,7 +5,7 @@ import { selectUpdatingTask } from '@/redux/selectors/taskSelector';
 import { Priority } from '@/types/Priority';
 import { Status } from '@/types/Status';
 import { Task } from '@/types/Task';
-import { taskFormValidationSchema } from '@/validation/taskFormValidationSchema';
+import { taskTitleValidationSchema } from '@/validation/taskTitleValidationSchema';
 import {
   Button,
   Grid,
@@ -25,13 +25,13 @@ export const TaskForm: React.FC = () => {
     id: updatingTask?.id || 0,
     title: updatingTask?.title || '',
     description: updatingTask?.description || '',
-    priority: updatingTask?.priority || Priority.Default,
-    status: updatingTask?.status || Status.NotCompleted,
+    priority: updatingTask?.priority || Priority.DEFAULT,
+    status: updatingTask?.status || Status.NOT_COMPLETED,
   };
 
   const formik = useFormik({
     initialValues,
-    validationSchema: taskFormValidationSchema,
+    validationSchema: taskTitleValidationSchema,
     onSubmit: (values) => {
       if (!isTaskUpdating) {
         dispatch(addTask(values));
@@ -106,18 +106,9 @@ export const TaskForm: React.FC = () => {
             fullWidth
             value={formik.values.priority}
             onChange={formik.handleChange}
-            sx={{
-              textTransform: 'capitalize',
-            }}
           >
             {Object.values(Priority).map((priorityValue) => (
-              <MenuItem
-                key={priorityValue}
-                value={priorityValue}
-                sx={{
-                  textTransform: 'capitalize',
-                }}
-              >
+              <MenuItem key={priorityValue} value={priorityValue}>
                 {priorityValue}
               </MenuItem>
             ))}
@@ -133,18 +124,9 @@ export const TaskForm: React.FC = () => {
             fullWidth
             value={formik.values.status}
             onChange={formik.handleChange}
-            sx={{
-              textTransform: 'capitalize',
-            }}
           >
             {Object.values(Status).map((statusValue) => (
-              <MenuItem
-                key={statusValue}
-                value={statusValue}
-                sx={{
-                  textTransform: 'capitalize',
-                }}
-              >
+              <MenuItem key={statusValue} value={statusValue}>
                 {statusValue}
               </MenuItem>
             ))}
