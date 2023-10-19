@@ -16,6 +16,10 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 import useTheme from '@mui/material/styles/useTheme';
+import {
+  setAlertMessage,
+  setIsAlertOppened,
+} from '@/redux/features/alertSlice';
 
 export const TaskForm: React.FC = () => {
   const theme = useTheme();
@@ -36,6 +40,15 @@ export const TaskForm: React.FC = () => {
     validationSchema: taskTitleValidationSchema,
     onSubmit: (values) => {
       if (!isTaskUpdating) {
+        const addMessage = {
+          title: 'Add',
+          text: 'Successfully added new task!',
+          severity: 'success',
+        };
+
+        dispatch(setIsAlertOppened(true));
+        dispatch(setAlertMessage(addMessage));
+
         dispatch(addTask(values));
       } else {
         const isUpdated =
@@ -45,6 +58,15 @@ export const TaskForm: React.FC = () => {
           values.status !== selectedTask.status;
 
         if (isUpdated) {
+          const addMessage = {
+            title: 'Update',
+            text: 'Successfully updated  task!',
+            severity: 'success',
+          };
+
+          dispatch(setIsAlertOppened(true));
+          dispatch(setAlertMessage(addMessage));
+
           dispatch(editTask(values));
         }
       }
