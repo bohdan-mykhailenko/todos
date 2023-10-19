@@ -1,4 +1,4 @@
-import { setFilterValues } from '@/redux/features/taskSlice';
+import { setFilterValues } from '@/redux/features/filterSlice';
 import { FilterValues } from '@/types/FilterValues';
 import { Priority } from '@/types/Priority';
 import { Status } from '@/types/Status';
@@ -29,6 +29,11 @@ export const FilterPanel: React.FC = () => {
       dispatch(setFilterValues(values));
     },
   });
+
+  const handleResetFilters = () => {
+    formik.resetForm();
+    dispatch(setFilterValues(initialValues));
+  };
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -82,10 +87,15 @@ export const FilterPanel: React.FC = () => {
           onChange={formik.handleChange}
         />
       </Grid>
+      <Grid>
+        <Button variant="contained" type="submit">
+          Apply Filters
+        </Button>
 
-      <Button variant="contained" type="submit">
-        Apply Filters
-      </Button>
+        <Button variant="contained" onClick={handleResetFilters}>
+          Reset
+        </Button>
+      </Grid>
     </form>
   );
 };

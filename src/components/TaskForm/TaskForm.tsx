@@ -25,8 +25,8 @@ export const TaskForm: React.FC = () => {
     id: updatingTask?.id || 0,
     title: updatingTask?.title || '',
     description: updatingTask?.description || '',
-    priority: updatingTask?.priority || Priority.Default,
-    status: updatingTask?.status || Status.NotCompleted,
+    priority: updatingTask?.priority || Priority.DEFAULT,
+    status: updatingTask?.status || Status.NOT_COMPLETED,
   };
 
   const formik = useFormik({

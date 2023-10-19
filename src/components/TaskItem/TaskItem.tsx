@@ -37,29 +37,29 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
   const { id, title, description, priority, status } = task;
 
   const priorityColors = {
-    [Priority.High]: theme.palette.priority.dark,
-    [Priority.Medium]: theme.palette.priority.main,
-    [Priority.Low]: theme.palette.priority.light,
-    [Priority.Default]: theme.palette.primary.main,
+    [Priority.HIGH]: theme.palette.priority.dark,
+    [Priority.MEDIUM]: theme.palette.priority.main,
+    [Priority.LOW]: theme.palette.priority.light,
+    [Priority.DEFAULT]: theme.palette.primary.main,
   };
 
   const priorityNames = {
-    [Priority.High]: 'P1',
-    [Priority.Medium]: 'P2',
-    [Priority.Low]: 'P3',
-    [Priority.Default]: 'P4',
+    [Priority.HIGH]: 'P1',
+    [Priority.MEDIUM]: 'P2',
+    [Priority.LOW]: 'P3',
+    [Priority.DEFAULT]: 'P4',
   };
 
   const statusColors = {
-    [Status.Completed]: theme.palette.success.main,
-    [Status.NotCompleted]: theme.palette.error.main,
-    [Status.InProgress]: theme.palette.info.main,
+    [Status.COMPLETED]: theme.palette.success.main,
+    [Status.NOT_COMPLETED]: theme.palette.error.main,
+    [Status.IN_PROGRESS]: theme.palette.info.main,
   };
 
   const statusIcons = {
-    [Status.Completed]: <CheckCircleOutlineIcon fontSize="medium" />,
-    [Status.NotCompleted]: <NotInterestedIcon fontSize="medium" />,
-    [Status.InProgress]: <QueryBuilderIcon fontSize="medium" />,
+    [Status.COMPLETED]: <CheckCircleOutlineIcon fontSize="medium" />,
+    [Status.NOT_COMPLETED]: <NotInterestedIcon fontSize="medium" />,
+    [Status.IN_PROGRESS]: <QueryBuilderIcon fontSize="medium" />,
   };
 
   const handleOpenEditModal = () => {
