@@ -1,14 +1,23 @@
+import { FilterValues } from '@/types/FilterValues';
+import { Priority } from '@/types/Priority';
+import { Status } from '@/types/Status';
 import { Task } from '@/types/Task';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface taskState {
   updatingTask: Task | null;
   tasks: Task[];
+  filterValues: FilterValues;
 }
 
 const initialState: taskState = {
   updatingTask: null,
   tasks: [],
+  filterValues: {
+    query: '',
+    status: 'all',
+    priority: 'all',
+  },
 };
 
 const taskSlice = createSlice({
@@ -46,10 +55,45 @@ const taskSlice = createSlice({
         state.tasks[index] = action.payload;
       }
     },
+
+    toggleTaskStatus: (state, action: PayloadAction<number>) => {
+      const taskId = action.payload;
+      const task = state.tasks.find((task) => task.id === taskId);
+
+      if (task) {
+        switch (task.status) {
+          case Status.NotCompleted:
+            task.status = Status.InProgress;
+            break;
+
+          case Status.InProgress:
+            task.status = Status.Completed;
+            break;
+
+          case Status.Completed:
+            task.status = Status.NotCompleted;
+            break;
+
+          default:
+            break;
+        }
+      }
+    },
+
+    setFilterValues: (state, action: PayloadAction<FilterValues>) => {
+      state.filterValues = action.payload;
+    },
   },
 });
 
-export const { setTasks, setUpdatingTask, addTask, editTask, removeTask } =
-  taskSlice.actions;
+export const {
+  setTasks,
+  setUpdatingTask,
+  addTask,
+  editTask,
+  removeTask,
+  toggleTaskStatus,
+  setFilterValues,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;

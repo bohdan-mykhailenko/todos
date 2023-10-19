@@ -1,6 +1,6 @@
 'use client';
 
-import { List } from '@mui/material';
+import { Grid, List, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { TaskItem } from '../TaskItem';
 import { Priority } from '@/types/Priority';
@@ -8,7 +8,11 @@ import { Status } from '@/types/Status';
 import { Task } from '@/types/Task';
 import { useTypedDispatch, useTypedSelector } from '@/redux/hooks';
 import { setTasks } from '@/redux/features/taskSlice';
-import { selectTasks } from '@/redux/selectors/taskSelector';
+import {
+  selectFilterValues,
+  selectTasks,
+} from '@/redux/selectors/taskSelector';
+import { filterTasks } from '@/helpers/filterTasks';
 
 interface TaskListProps {}
 
@@ -55,6 +59,10 @@ export const TaskList: React.FC<TaskListProps> = () => {
   ];
 
   const tasks = useTypedSelector(selectTasks);
+  const filterValues = useTypedSelector(selectFilterValues);
+
+  const filteredTasks = filterTasks(tasks, filterValues);
+  const isListEmpty = tasks.length === 0;
 
   useEffect(() => {
     // const savedTasks = localStorage.getItem('tasks');
@@ -70,17 +78,21 @@ export const TaskList: React.FC<TaskListProps> = () => {
     dispatch(setTasks(tasksFromStorage));
 
     return () => {
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+      localStorage.setItem('tasks', JSON.stringify(filteredTasks));
     };
   }, []);
 
-  console.log(tasks);
-
   return (
-    <List>
-      {tasks.map((task) => (
-        <TaskItem key={task.id} task={task} />
-      ))}
-    </List>
+    <Grid>
+      {isListEmpty ? (
+        <Typography>Emptyy</Typography>
+      ) : (
+        <List>
+          {filteredTasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </List>
+      )}
+    </Grid>
   );
 };
