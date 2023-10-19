@@ -15,8 +15,10 @@ import {
   TextField,
 } from '@mui/material';
 import { useFormik } from 'formik';
+import useTheme from '@mui/material/styles/useTheme';
 
 export const TaskForm: React.FC = () => {
+  const theme = useTheme();
   const dispatch = useTypedDispatch();
   const updatingTask = useTypedSelector(selectUpdatingTask);
   const isTaskUpdating = updatingTask !== null;
@@ -42,9 +44,6 @@ export const TaskForm: React.FC = () => {
           values.priority !== updatingTask.priority ||
           values.status !== updatingTask.status;
 
-        console.log('iu', isUpdated);
-        console.log('val', values);
-
         if (isUpdated) {
           dispatch(editTask(values));
         }
@@ -63,13 +62,14 @@ export const TaskForm: React.FC = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid
+        width="100%"
         container
         padding="20px"
         gap="10px"
         margin="0 auto"
         sx={{
-          backgroundColor: '#dea',
-          width: '50%',
+          borderRadius: '10px',
+          backgroundColor: theme.palette.white.main,
         }}
       >
         <Grid item xs={12}>
@@ -132,11 +132,14 @@ export const TaskForm: React.FC = () => {
             ))}
           </Select>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} display="flex" justifyContent="center">
           <Button
             variant="contained"
             color="primary"
             onClick={handleCloseTaskForm}
+            sx={{
+              marginRight: '15px',
+            }}
           >
             Cancel
           </Button>

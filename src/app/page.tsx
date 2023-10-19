@@ -7,15 +7,18 @@ export default function Home() {
     <Grid
       container
       direction="column"
+      alignItems="center"
       sx={{
-        alignItems: 'center',
-        minHeight: '100vh',
         padding: '30px',
+        minHeight: '100vh',
+
+        backgroundColor: 'mediumspringgreen',
       }}
     >
       <Typography variant="h1" color="primary" marginBottom="20px">
         TODOS
       </Typography>
+
       <StoreProvider>
         <TaskDashboard />
       </StoreProvider>

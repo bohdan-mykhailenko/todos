@@ -6,6 +6,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           height: '40px',
+          width: '80px',
         },
       },
     },
@@ -29,7 +30,7 @@ export const theme = createTheme({
     fontWeightBold: 700,
 
     h1: {
-      fontSize: '34px',
+      fontSize: '40px',
       fontWeight: 700,
       lineHeight: '150%',
     },
@@ -39,8 +40,8 @@ export const theme = createTheme({
       lineHeight: '150%',
     },
     h3: {
-      fontSize: '20px',
-      fontWeight: 700,
+      fontSize: '22px',
+      fontWeight: 500,
       lineHeight: '150%',
     },
     h4: {
@@ -65,10 +66,11 @@ export const theme = createTheme({
 
   palette: {
     accent: {
-      main: '#FEE2C5',
+      main: '#be8a52',
+      light: 'rgb(245, 232, 219)',
     },
     primary: {
-      main: '#000A10',
+      main: '#03121b',
       light: '#aaa',
     },
     secondary: {
@@ -85,7 +87,7 @@ export const theme = createTheme({
       dark: '#686868',
     },
     white: {
-      main: '#FAFDFE',
+      main: '#ffffff',
     },
     priority: {
       main: '#7d39a7',

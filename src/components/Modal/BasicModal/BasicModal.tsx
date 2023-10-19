@@ -23,38 +23,39 @@ export const BasicModal: React.FC<DeleteModalProps> = ({
   };
 
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '10%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+
+          backgroundColor: theme.palette.white.main,
+          border: `3px solid ${theme.palette.primary.main}`,
+          boxShadow: 24,
+          borderRadius: '10px',
+
+          [theme.breakpoints.up('md')]: {
+            width: '600px',
+          },
+
+          [theme.breakpoints.up('sm')]: {
+            width: '400px',
+          },
+
+          [theme.breakpoints.up('xs')]: {
+            width: '300px',
+          },
+        }}
       >
-        <Box
-          sx={{
-            //   padding: '20px',
-
-            //   width: '400px',
-
-            position: 'absolute',
-            top: '10%',
-            left: '25%',
-
-            //   transform: 'translate(-50%, -50%)',
-
-            //   backgroundColor: theme.palette.white.main,
-            //   border: `2px solid ${theme.palette.primary.main}`,
-            //   boxShadow: 24,
-            //   borderRadius: '5px',
-
-            //   [theme.breakpoints.down('sm')]: {
-            //     width: '80%',
-            //   },
-          }}
-        >
-          {children}
-        </Box>
-      </Modal>
-    </div>
+        {children}
+      </Box>
+    </Modal>
   );
 };

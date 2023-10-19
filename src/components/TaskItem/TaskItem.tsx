@@ -2,14 +2,7 @@
 
 import React from 'react';
 import { Task } from '@/types/Task';
-import {
-  Box,
-  Grid,
-  IconButton,
-  ListItem,
-  SvgIconOwnProps,
-  Typography,
-} from '@mui/material';
+import { Box, Grid, IconButton, ListItem, Typography } from '@mui/material';
 import useTheme from '@mui/material/styles/useTheme';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
@@ -84,6 +77,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
           borderRadius: '10px',
           border: `3px solid ${theme.palette.primary.main}`,
           gap: '10px',
+          backgroundColor: theme.palette.white.main,
         }}
       >
         <Grid container justifyContent="space-between">

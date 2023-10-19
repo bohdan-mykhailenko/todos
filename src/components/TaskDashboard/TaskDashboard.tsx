@@ -13,7 +13,12 @@ export const TaskDashboard: React.FC = () => {
   const isAddModalOpen = useTypedSelector(selectIsAddModalOpen);
 
   return (
-    <Grid position="relative">
+    <Grid
+      container
+      alignItems="center"
+      justifyContent="center"
+      direction="column"
+    >
       <CreatePanel />
       <FilterPanel />
       <SortPanel />
