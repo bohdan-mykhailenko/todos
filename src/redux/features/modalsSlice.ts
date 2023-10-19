@@ -2,14 +2,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface modalsState {
   isAddModalOpen: boolean;
-  isDeleteModalOpen: boolean;
-  isEditModalOpen: boolean;
+  isFormModalOpen: boolean;
 }
 
 const initialState: modalsState = {
   isAddModalOpen: false,
-  isDeleteModalOpen: false,
-  isEditModalOpen: false,
+  isFormModalOpen: false,
 };
 
 const modalsSlice = createSlice({
@@ -20,16 +18,12 @@ const modalsSlice = createSlice({
       state.isAddModalOpen = action.payload;
     },
 
-    setIsDeleteModalOpen: (state, action: PayloadAction<boolean>) => {
-      state.isDeleteModalOpen = action.payload;
-    },
-    setIsEditModalOpen: (state, action: PayloadAction<boolean>) => {
-      state.isEditModalOpen = action.payload;
+    setIsFormModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isFormModalOpen = action.payload;
     },
   },
 });
 
-export const { setIsAddModalOpen, setIsDeleteModalOpen, setIsEditModalOpen } =
-  modalsSlice.actions;
+export const { setIsAddModalOpen, setIsFormModalOpen } = modalsSlice.actions;
 
 export default modalsSlice.reducer;

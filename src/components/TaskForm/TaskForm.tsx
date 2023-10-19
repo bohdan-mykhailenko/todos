@@ -1,7 +1,7 @@
 import { setIsAddModalOpen } from '@/redux/features/modalsSlice';
-import { addTask, editTask, setUpdatingTask } from '@/redux/features/taskSlice';
+import { addTask, editTask, setSelectedTask } from '@/redux/features/taskSlice';
 import { useTypedDispatch, useTypedSelector } from '@/redux/hooks';
-import { selectUpdatingTask } from '@/redux/selectors/taskSelector';
+import { selectSelectedTask } from '@/redux/selectors/taskSelector';
 import { Priority } from '@/types/Priority';
 import { Status } from '@/types/Status';
 import { Task } from '@/types/Task';
@@ -15,18 +15,20 @@ import {
   TextField,
 } from '@mui/material';
 import { useFormik } from 'formik';
+import useTheme from '@mui/material/styles/useTheme';
 
 export const TaskForm: React.FC = () => {
+  const theme = useTheme();
   const dispatch = useTypedDispatch();
-  const updatingTask = useTypedSelector(selectUpdatingTask);
-  const isTaskUpdating = updatingTask !== null;
+  const selectedTask = useTypedSelector(selectSelectedTask);
+  const isTaskUpdating = selectedTask !== null;
 
   const initialValues: Task = {
-    id: updatingTask?.id || 0,
-    title: updatingTask?.title || '',
-    description: updatingTask?.description || '',
-    priority: updatingTask?.priority || Priority.DEFAULT,
-    status: updatingTask?.status || Status.NOT_COMPLETED,
+    id: selectedTask?.id || 0,
+    title: selectedTask?.title || '',
+    description: selectedTask?.description || '',
+    priority: selectedTask?.priority || Priority.DEFAULT,
+    status: selectedTask?.status || Status.NOT_COMPLETED,
   };
 
   const formik = useFormik({
@@ -37,13 +39,10 @@ export const TaskForm: React.FC = () => {
         dispatch(addTask(values));
       } else {
         const isUpdated =
-          values.title !== updatingTask.title ||
-          values.description !== updatingTask.description ||
-          values.priority !== updatingTask.priority ||
-          values.status !== updatingTask.status;
-
-        console.log('iu', isUpdated);
-        console.log('val', values);
+          values.title !== selectedTask.title ||
+          values.description !== selectedTask.description ||
+          values.priority !== selectedTask.priority ||
+          values.status !== selectedTask.status;
 
         if (isUpdated) {
           dispatch(editTask(values));
@@ -51,13 +50,13 @@ export const TaskForm: React.FC = () => {
       }
 
       dispatch(setIsAddModalOpen(false));
-      dispatch(setUpdatingTask(null));
+      dispatch(setSelectedTask(null));
     },
   });
 
   const handleCloseTaskForm = () => {
     dispatch(setIsAddModalOpen(false));
-    dispatch(setUpdatingTask(null));
+    dispatch(setSelectedTask(null));
   };
 
   return (
@@ -67,9 +66,22 @@ export const TaskForm: React.FC = () => {
         padding="20px"
         gap="10px"
         margin="0 auto"
+        direction="column"
         sx={{
-          backgroundColor: '#dea',
-          width: '50%',
+          borderRadius: '10px',
+          backgroundColor: theme.palette.white.main,
+
+          [theme.breakpoints.up('md')]: {
+            width: '600px',
+          },
+
+          [theme.breakpoints.up('sm')]: {
+            width: '400px',
+          },
+
+          [theme.breakpoints.up('xs')]: {
+            width: '300px',
+          },
         }}
       >
         <Grid item xs={12}>
@@ -132,11 +144,14 @@ export const TaskForm: React.FC = () => {
             ))}
           </Select>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} display="flex" justifyContent="center">
           <Button
             variant="contained"
             color="primary"
             onClick={handleCloseTaskForm}
+            sx={{
+              marginRight: '15px',
+            }}
           >
             Cancel
           </Button>

@@ -6,12 +6,12 @@ import { Task } from '@/types/Task';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface taskState {
-  updatingTask: Task | null;
+  selectedTask: Task | null;
   tasks: Task[];
 }
 
 const initialState: taskState = {
-  updatingTask: null,
+  selectedTask: null,
   tasks: [],
 };
 
@@ -19,8 +19,8 @@ const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    setUpdatingTask: (state, action: PayloadAction<Task | null>) => {
-      state.updatingTask = action.payload;
+    setSelectedTask: (state, action: PayloadAction<Task | null>) => {
+      state.selectedTask = action.payload;
     },
 
     setTasks: (state, action: PayloadAction<Task[]>) => {
@@ -79,7 +79,7 @@ const taskSlice = createSlice({
 
 export const {
   setTasks,
-  setUpdatingTask,
+  setSelectedTask,
   addTask,
   editTask,
   removeTask,

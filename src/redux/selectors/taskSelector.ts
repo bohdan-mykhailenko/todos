@@ -2,11 +2,11 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 const tasksSelector = (state: RootState) => state.task.tasks;
-const updatingTaskSelector = (state: RootState) => state.task.updatingTask;
+const selectedTaskSelector = (state: RootState) => state.task.selectedTask;
 
 export const selectTasks = createSelector([tasksSelector], (tasks) => tasks);
 
-export const selectUpdatingTask = createSelector(
-  [updatingTaskSelector],
-  (updatingTask) => updatingTask,
+export const selectSelectedTask = createSelector(
+  [selectedTaskSelector],
+  (selectedTask) => selectedTask,
 );

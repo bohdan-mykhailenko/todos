@@ -8,11 +8,6 @@ export const metadata: Metadata = {
   keywords: ['Todo', 'Next', 'React'],
 };
 
-const bodyStyles = {
-  // color: 'rgb(var(--foreground-rgb))',
-  // background: '--var(background-end-rgb)',
-};
-
 export default function RootLayout({
   children,
 }: {
