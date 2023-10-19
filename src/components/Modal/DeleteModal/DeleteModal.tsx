@@ -17,7 +17,9 @@ export const DeleteModal = () => {
   const dispatch = useTypedDispatch();
   const { id = 0, title } = useTypedSelector(selectSelectedTask) || {};
 
-  const handleCloseDeleteModal = () => {};
+  const handleCloseDeleteModal = () => {
+    dispatch(setIsFormModalOpen(false));
+  };
 
   const handleRemoveTask = () => {
     const deleteMessage = {
